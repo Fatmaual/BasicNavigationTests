@@ -1,6 +1,6 @@
 package com.cbt.utilities;
 
-public class DriverUtility {
+public class SetUpTime {
     public static void waitFor(int seconds){
         try{
             Thread.sleep(1000*seconds);

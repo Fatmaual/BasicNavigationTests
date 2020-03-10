@@ -1,52 +1,111 @@
 package com.cbt.tests;
 
 import com.cbt.utilities.BrowserFactory;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.cbt.utilities.StringUtility;
 import org.openqa.selenium.WebDriver;
 
 
 public class NavigationTests {
     public static void main(String[] args) throws InterruptedException {
-        WebDriverManager.chromedriver().version("79").setup();
-        WebDriver driver1= BrowserFactory.getDriver("chrome");
+        chromeTest();
+       fireFoxTest();
+        safariTest();
 
-        driver1.get("http://google.com");
-        String title1=driver1.getTitle();
-        System.out.println("Title is: "+title1);
+       
+    }
+    public static void chromeTest() throws InterruptedException {
+        //1. open browser
+        WebDriver driver= BrowserFactory.getDriver("chrome");
+      //2. go to website http://google.com
+        driver.get("http://google.com");
+        //3. save the title in a string variable
+        String title1= driver.getTitle();
+        System.out.println("title 1: "+title1);
         Thread.sleep(2000);
 
-       driver1.get("http://etsy.com");
-       String title2= driver1.getTitle();
-       System.out.println("Second title is: "+title2);
-       Thread.sleep(2000);
+        //4. go to http://etsy.com
+        driver.get("http://etsy.com");
+        //5. save the title in a string variable
+        String title2= driver.getTitle();
+        System.out.println("title 2: "+title2);
+        Thread.sleep(2000);
 
-       driver1.navigate().back();
-       Thread.sleep(2000);
-       String expectedTitle="Google";
-       if(expectedTitle.equalsIgnoreCase(title1)){
-           System.out.println("Test passed");
-       }else{
-           System.out.println("Test failed");
-       }
+        //6. Navigate back to previous page
+        driver.navigate().back();
+        //7. verify that title is same is in step 3
+        StringUtility.verifyEquals(title1,driver.getTitle());
+        Thread.sleep(2000);
 
-       Thread.sleep(2000);
-       driver1.navigate().forward();
-       if(expectedTitle.equalsIgnoreCase(title2)){
-           System.out.println("Test Passed");
-       }else{
-           System.out.println("Test Failed");
-       }
-        driver1.close();
+        //8. Navigate forward to previous page
+        driver.navigate().forward();
+        //9. verify that title is same is in step 5
+       StringUtility.verifyEquals(title2,driver.getTitle());
+        Thread.sleep(2000);
 
-       WebDriverManager.firefoxdriver().version("79").setup();
-       WebDriver driver2=BrowserFactory.getDriver("firefox");
-       driver2.get("http://google.com");
-       String title3=driver2.getTitle();
-       Thread.sleep(2000);
+        driver.close();
+    }
+    public static void fireFoxTest() throws InterruptedException {
 
-       driver2.get("http://etsy.com");
-       String title4=driver2.getTitle();
+        //1. open browser
+        WebDriver driver=BrowserFactory.getDriver("firefox");
+        // Go to website http://google.com
+        driver.get("http://google.com");
+        //3. Save the title in a string variable
+        String titleGoogle= driver.getTitle();
+        System.out.println(titleGoogle);
+        Thread.sleep(3000);
 
+        //4. go to http:etsy.com
+        driver.get("http://etsy.com");
+        //5. save the title in a string variable
+        String titleEtsy= driver.getTitle();
+        System.out.println(titleEtsy);
+        Thread.sleep(3000);
+
+        //6. Navigate back to previous page
+        driver.navigate().back();
+        //7. verify that title is same is in step 3
+        StringUtility.verifyEquals(titleGoogle,driver.getTitle());
+        Thread.sleep(3000);
+        //8. Navigate forward to previous page
+        driver.navigate().forward();
+        //9. verify that title is same is in step 5
+        StringUtility.verifyEquals(titleEtsy,driver.getTitle());
+
+        driver.close();
 
     }
+    public static void safariTest() throws InterruptedException {
+
+        //1. open the browser
+        WebDriver driver=BrowserFactory.getDriver("safari");
+        //2. go to website http://google.com
+        driver.get("http://google.com");
+        //3. save the title in a string variable
+        String titleOfGoogle= driver.getTitle();
+        System.out.println(titleOfGoogle);
+        Thread.sleep(2000);
+
+        //4. go to http://etsy.com
+        driver.get("http://etsy.com");
+        //5. save the title in a string variable
+        String titleOfEtsy=driver.getTitle();
+        System.out.println(titleOfEtsy);
+        Thread.sleep(2000);
+
+        //6. Navigate to back the previous page
+        driver.navigate().back();
+        //7. verify the title as same as in step 5
+       StringUtility.verifyEquals(titleOfGoogle,driver.getTitle());
+       //8. Navigate to forward to the previous page
+        driver.navigate().forward();
+        //9. verify the title as same as in step 5
+        StringUtility.verifyEquals(titleOfEtsy,driver.getTitle());
+
+        driver.close();
+        System.out.println("driver closed");
+    }
 }
+
+
+

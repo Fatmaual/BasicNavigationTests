@@ -4,8 +4,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.opera.OperaDriver;
+
+import org.openqa.selenium.safari.SafariDriver;
 
 public class BrowserFactory {
   public static WebDriver getDriver(String driverName){
@@ -15,24 +15,21 @@ public class BrowserFactory {
       return new ChromeDriver();
 
     }else if(driverName.equalsIgnoreCase("firefox")){
-      WebDriverManager.firefoxdriver().version("79.0").setup();
+      WebDriverManager.firefoxdriver().setup();
       return new FirefoxDriver();
 
-    }else if(driverName.equalsIgnoreCase("IE")){
-      WebDriverManager.iedriver().version("79.0").setup();
-      return new InternetExplorerDriver();
+    }else if(driverName.equalsIgnoreCase("safari")){
+      return new SafariDriver();
 
 
-    }else if(driverName.equalsIgnoreCase("opera")){
-      WebDriverManager.operadriver().version("79.0").setup();
-      return new OperaDriver();
+    }else if(driverName.equalsIgnoreCase("edge")){
 
-    }else{
-
+      return null;
 
     }
 
-    return null;
+      return null;
+
 
   }
 
