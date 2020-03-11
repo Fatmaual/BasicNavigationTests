@@ -15,7 +15,8 @@ public class TitleVerification2 {
 
         List<String> urls = Arrays.asList("https://lulugandgeorgia.com","https://wayfair.com/",
                 "https://walmart.com","https://westelm.com/");
- //the first title is incorrect->https://lulugandgeorgia.com
+ //the first link is incorrect->https://luluandgeorgia.com,
+        //"https://walmart.com" and "https://westelm.com/" were incorrect either.(it got fixed it manually)
         for (String url : urls) {
             driver.get(url);
             SetUpTime.waitFor(2);
